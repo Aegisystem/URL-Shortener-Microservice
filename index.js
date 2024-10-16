@@ -25,16 +25,15 @@ app.get('/api/hello', function(req, res) {
 const data = []
 app.post('/api/shorturl', (req, res)=> {
   const url = req.body.url
-  console.log('url:', url)
   try {
     const urlObj = new URL(url)
     dns.lookup(urlObj.hostname,(err, address, family) => {
       if (err) {
         res.json({error:"Invalid url"});
       } else {
-        data.push(urlObj.origin)
+        data.push(url)
         res.json({
-          original_url: urlObj.origin,
+          original_url: url,
           short_url: data.length
         })
       }
